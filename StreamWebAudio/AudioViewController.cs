@@ -1,8 +1,8 @@
-﻿using System;
-using System.Drawing;
-using MonoTouch.AudioToolbox;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using System;
+using CoreGraphics;
+using AudioToolbox;
+using Foundation;
+using UIKit;
 
 namespace StreamWebAudio
 {
@@ -23,8 +23,8 @@ namespace StreamWebAudio
 
             using (var image = UIImage.FromFile ("XamarinLogo.png")) {
                 logo = new UIImageView (image) {
-                    Frame = new RectangleF (
-                        new PointF (View.Center.X - image.Size.Width / 2, View.Center.Y - image.Size.Height / 2), 
+                    Frame = new CGRect (
+                        new CGPoint (View.Center.X - image.Size.Width / 2, View.Center.Y - image.Size.Height / 2), 
                         image.Size)
                 };
                 Add (logo);
@@ -88,7 +88,7 @@ namespace StreamWebAudio
             }
         }
 
-        void OnOutputQueueOutputCompleted (object sender, OutputCompletedEventArgs e)
+        void OnOutputQueueOutputCompleted (object sender, BufferCompletedEventArgs e)
         {
             outputQueue.FreeBuffer (e.IntPtrBuffer);
         }
